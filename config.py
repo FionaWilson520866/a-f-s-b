@@ -80,7 +80,7 @@ FORCE_MSG = """ʜᴇʟʟᴏ {first}!⚡
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", None)
 
 #set True if you want to prevent users from forwarding files from bot
-PROTECT_CONTENT = True if os.environ.get('PROTECT_CONTENT', "True") == "True" else False
+PROTECT_CONTENT = True if os.environ.get('PROTECT_CONTENT', "False") == "True" else False
 
 
 #Set true if you want Disable your Channel Posts Share button
