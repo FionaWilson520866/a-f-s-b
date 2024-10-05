@@ -13,20 +13,41 @@ async def stats(bot: Bot, message: Message):
     await message.reply(BOT_STATS_TEXT.format(uptime=time))
 
 
+# Custom filter to check if the user is not an admin
+def non_admin_filter(_, __, message):
+    return message.from_user.id not in ADMINS
+
+@Bot.on_message(filters.private & filters.incoming & filters.create(non_admin_filter))
+async def useless(_, message: Message):
+    user = message.from_user  # Retrieve the user who sent the message
+    button = InlineKeyboardMarkup([[
+            InlineKeyboardButton("🧑‍💻 Developer 🧑‍💻", url='https://t.me/PandaXTeam')
+        ]])
+    
+    # Send a photo or a text message based on availability of SORRY_PIC
+    if SORRY_PIC:
+        await message.reply_photo(SORRY_PIC, caption=USER_REPLY_TEXT.format(user.mention), reply_markup=button)
+    else:
+        await message.reply_text(text=USER_REPLY_TEXT.format(user.mention), reply_markup=button, disable_web_page_preview=True)
+
+
 #@Bot.on_message(filters.private & filters.incoming)
 #async def useless(_,message: Message):
 #    if USER_REPLY_TEXT:
 #        await message.reply(USER_REPLY_TEXT)
 
-@Bot.on_message(filters.private & filters.incoming)
-async def useless(_, message: Message):            
-    user = message.from_user  # Retrieve the user who sent the message
-    button = InlineKeyboardMarkup([[
-            InlineKeyboardButton("🧑‍💻 Developer 🧑‍💻", url='https://t.me/PandaXTeam')
-        ]])
-    if SORRY_PIC:
-        await message.reply_photo(SORRY_PIC, caption=USER_REPLY_TEXT.format(user.mention), reply_markup=button)       
-    else:
-        await message.reply_text(text=USER_REPLY_TEXT.format(user.mention), reply_markup=button, disable_web_page_preview=True)
+
+# from config import ADMINS
+
+# @Bot.on_message(filters.private & filters.incoming)
+# async def useless(_, message: Message):            
+#     user = message.from_user  # Retrieve the user who sent the message
+#     button = InlineKeyboardMarkup([[
+#             InlineKeyboardButton("🧑‍💻 Developer 🧑‍💻", url='https://t.me/PandaXTeam')
+#         ]])
+#     if SORRY_PIC:
+#         await message.reply_photo(SORRY_PIC, caption=USER_REPLY_TEXT.format(user.mention), reply_markup=button)       
+#     else:
+#         await message.reply_text(text=USER_REPLY_TEXT.format(user.mention), reply_markup=button, disable_web_page_preview=True)
 
 
