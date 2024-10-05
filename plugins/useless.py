@@ -12,10 +12,8 @@ async def stats(bot: Bot, message: Message):
     time = get_readable_time(delta.seconds)
     await message.reply(BOT_STATS_TEXT.format(uptime=time))
 
-
-# Custom filter to check if the user is not an admin
 def non_admin_filter(_, __, message):
-    return message.from_user.id not in ADMINS
+    return message.from_user.id not in ADMINS and not message.text.startswith("/")
 
 @Bot.on_message(filters.private & filters.incoming & filters.create(non_admin_filter))
 async def useless(_, message: Message):
@@ -29,7 +27,6 @@ async def useless(_, message: Message):
         await message.reply_photo(SORRY_PIC, caption=USER_REPLY_TEXT.format(user.mention), reply_markup=button)
     else:
         await message.reply_text(text=USER_REPLY_TEXT.format(user.mention), reply_markup=button, disable_web_page_preview=True)
-
 
 #@Bot.on_message(filters.private & filters.incoming)
 #async def useless(_,message: Message):
