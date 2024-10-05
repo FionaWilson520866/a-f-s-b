@@ -1,9 +1,9 @@
 pyrofork
 TgCrypto==1.2.5
-pyromod==1.5
+# pyromod==1.5
 
 
-# pymongo==4.0.2
+pymongo==4.0.2
 dnspython==2.3.0
 
 
