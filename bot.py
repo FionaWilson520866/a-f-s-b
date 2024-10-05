@@ -1,6 +1,6 @@
 from aiohttp import web
 from plugins import web_server
-import pyromod.listen
+# import pyromod.listen
 from pyrogram import Client
 from pyrogram.enums import ParseMode
 import sys
@@ -22,18 +22,18 @@ class Bot(Client):
         )
         self.LOGGER = LOGGER
      
-    async def start(self):
-        await super().start()
-        me = await self.get_me()
-        self.mention = me.mention
-        self.username = me.username  
+    # async def start(self):
+    #     await super().start()
+    #     me = await self.get_me()
+    #     self.mention = me.mention
+    #     self.username = me.username  
                 
-        print(f"{me.first_name} Is Started.....✨️")
-        for admin_id in ADMINS:
-            try:
-                await self.send_message(admin_id, f"**{me.first_name} Is Started.....✨️**")
-            except Exception as e:
-                print(f"Failed to send start message to admin {admin_id}: {e}")
+    #     print(f"{me.first_name} Is Started.....✨️")
+    #     for admin_id in ADMINS:
+    #         try:
+    #             await self.send_message(admin_id, f"**{me.first_name} Is Started.....✨️**")
+    #         except Exception as e:
+    #             print(f"Failed to send start message to admin {admin_id}: {e}")
 
 
     async def start(self):
@@ -97,3 +97,5 @@ class Bot(Client):
     async def stop(self, *args):
         await super().stop()
         self.LOGGER(__name__).info("Bot stopped.")
+        
+Bot().run()
