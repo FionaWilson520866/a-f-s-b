@@ -1,6 +1,5 @@
 from aiohttp import web
 from plugins import web_server
-
 import pyromod.listen
 from pyrogram import Client
 from pyrogram.enums import ParseMode
@@ -85,11 +84,15 @@ class Bot(Client):
 
         self.LOGGER(__name__).info(f"""All Ok Use Now""")
         self.username = usr_bot_me.username
-        #web-response
+
+        # #web-response
+        # app = web.AppRunner(await web_server())
+        # await app.setup()
+        # bind_address = "0.0.0.0"
+        # await web.TCPSite(app, bind_address, PORT).start()
         app = web.AppRunner(await web_server())
-        await app.setup()
-        bind_address = "0.0.0.0"
-        await web.TCPSite(app, bind_address, PORT).start()
+        await app.setup()       
+        await web.TCPSite(app, "0.0.0.0", PORT).start()     
 
     async def stop(self, *args):
         await super().stop()
